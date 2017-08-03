@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Health</string>
     <string name="launcher_text">欢迎使用健康管家</string>
+    <string name="title_text">健康管家</string>
+    <string name="index_button_content">首页</string>
+    <string name="health_button_content">健康</string>
+    <string name="friend_button_content">附近</string>
+    <string name="me_button_content">我的</string>
 </resources>
