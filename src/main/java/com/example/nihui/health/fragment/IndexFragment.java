@@ -3,8 +3,11 @@ package com.example.nihui.health.fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.nihui.health.R;
 import com.example.nihui.health.base.BaseFragment;
 
 /**
@@ -15,23 +18,26 @@ import com.example.nihui.health.base.BaseFragment;
 
 public class IndexFragment extends BaseFragment {
 
-    private TextView textView;
     private static final  String TAG = IndexFragment.class.getCanonicalName();
 
+    private ListView listView;
+
+    String[] objectArray={"健康建议","健康建议","健康建议","健康建议","健康建议","健康建议"};
     @Override
     protected View initView() {
 
         Log.e(TAG,"常用框架的Fragment被创建");
-        textView = new TextView(mContext);
-        textView.setTextSize(20);
-        textView.setGravity(Gravity.CENTER);
-        return textView;
+        View view = View.inflate(mContext, R.layout.fragment_index,null);
+        listView = (ListView) view.findViewById(R.id.show_item);
+        return view;
     }
 
     //重写父类方法
     protected void initData(){
         super.initData();
         Log.e(TAG,"数据被加载");
-        textView.setText("这个是一个字符串");
+        listView.setAdapter(new ArrayAdapter(mContext,R.layout.item,objectArray));
+
     }
+
 }

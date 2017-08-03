@@ -6,4 +6,8 @@
     <string name="health_button_content">健康</string>
     <string name="friend_button_content">附近</string>
     <string name="me_button_content">我的</string>
+    <string name="launcher_text_content">健康大管家</string>
+    <string name="login_text">登录</string>
+    <string name="froget_username_and_password">忘记密码</string>
+    <string name="logn_content">点击注册</string>
 </resources>

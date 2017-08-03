@@ -18,6 +18,10 @@
 
         <!--启动页-->
         <activity android:name=".LauncherActivity">
+
+        </activity>
+        <!--登录页面-->
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

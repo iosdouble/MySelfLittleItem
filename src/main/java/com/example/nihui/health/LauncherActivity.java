@@ -35,7 +35,7 @@ public class LauncherActivity extends Activity {
     }
     //定义函数用于页面跳转
     public void GoIndexActivity(){
-        Intent intent = new Intent(LauncherActivity.this,MainActivity.class);
+        Intent intent = new Intent(LauncherActivity.this,LoginActivity.class);
         startActivity(intent);
         finish();
     }
