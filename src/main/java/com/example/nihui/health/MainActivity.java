@@ -1,7 +1,7 @@
 package com.example.nihui.health;
 
-import android.app.Activity;
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -32,6 +32,9 @@ public class MainActivity extends FragmentActivity {
      * 选中的Fragment对应的位置
      */
     private  int position = 0;
+
+    //上次切换的Fragment
+    private BaseFragment mFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,9 @@ public class MainActivity extends FragmentActivity {
         //设置默认选中
         mRg_main.check(R.id.index_button_id);
     }
+    /*
+     * 点击每个按钮就会回调一个外部整体RadioGroup
+     */
     class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener{
 
         @Override
@@ -75,30 +81,58 @@ public class MainActivity extends FragmentActivity {
 
 
             //根据位置得到页面
-               BaseFragment fragment = getFragment();
+               BaseFragment tofragment = getFragment();
             //替换
-               switchFragment(fragment);
+               switchFragment(mFragment,tofragment);
             }
         }
 
+    private void switchFragment(BaseFragment from, BaseFragment to) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+       if (from!=to){
+           //才切换
+           mFragment = to;
+
+           //判断有没有被添加
+           if (!to.isAdded()){
+               //没有被添加 from隐藏 to添加 add
+               if(from!=null){
+                   ft.hide(from);
+               }
+               if (to!=null){
+                   ft.add(R.id.fl_content,to).commit();
+               }
+           }else{
+               //已经被添加 from隐藏 to显示 show
+               if(from!=null){
+                   ft.hide(from);
+               }
+               if (to!=null){
+                   ft.show(to).commit();
+               }
+           }
+       }
+    }
+
+    /*
     private void switchFragment(BaseFragment fragment) {
         //1.得到FragmentManager
         FragmentManager fm = getSupportFragmentManager();
         //开启事务
         FragmentTransaction transaction = fm.beginTransaction();
+
         //替换
         transaction.replace(R.id.fl_content,fragment);
         //提交事务
         transaction.commit();
-
     }
+    */
 
     //根据位置得到Fragment
     private BaseFragment getFragment() {
         BaseFragment fragment =  mBaseFragmentList.get(position);
         return fragment;
     }
-
     private void initFragment() {
         mBaseFragmentList = new ArrayList<>();
         mBaseFragmentList.add(new IndexFragment());//主页
@@ -107,11 +141,8 @@ public class MainActivity extends FragmentActivity {
         mBaseFragmentList.add(new MeFragment()) ; //我自己
 
     }
-
     private void initView() {
         setContentView(R.layout.activity_main);
         mRg_main = (RadioGroup) findViewById(R.id.rg_main);
-
     }
-
 }
