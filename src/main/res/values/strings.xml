@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Health</string>
+    <string name="launcher_text">欢迎使用健康管家</string>
 </resources>
