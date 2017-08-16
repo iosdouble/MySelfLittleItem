@@ -12,6 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nihui.health.bean.User;
+
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobConfig;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
+
 /**
  * Created by nihui on 2017/8/3.
  * Author nihui
@@ -31,6 +38,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         //初始化页面
         initView();
+
+        //第二：自v3.4.7版本开始,设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
+        BmobConfig config =new BmobConfig.Builder(this)
+        //设置appkey
+        .setApplicationId("12c93f7649a8e07d04a0b455af77136e")
+        //请求超时时间（单位为秒）：默认15s
+        .setConnectTimeout(30)
+        //文件分片上传时每片的大小（单位字节），默认512*1024
+        .setUploadBlockSize(1024*1024)
+        //文件的过期时间(单位为秒)：默认1800s
+        .setFileExpiration(2500)
+        .build();
+        Bmob.initialize(config);
 
         //设置监听事件
         setOnclick();
@@ -93,6 +113,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         switch (viewid){
             case R.id.login_btn:  //登录按钮
                 toast("你点击了登录按钮");
+                addUser();
                 break;
             case R.id.logn_btn: //用户注册
                 toast("你点击了用户注册");
@@ -102,6 +123,26 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }
+
+    public void addUser(){
+        User user = new User();
+        user.setUsername("lucky");
+        user.setPassword("123");
+        user.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId,BmobException e) {
+                if(e==null){
+                    toast("添加数据成功，返回objectId为："+objectId);
+                }else{
+                    toast("创建数据失败：" + e.getMessage());
+                }
+            }
+        });
+    }
+    /**
+     * 添加吐丝方法
+     * @param str 吐丝字符串
+     */
     public void toast(String str){
         Toast.makeText(getApplicationContext(),str,Toast.LENGTH_SHORT).show();
     }
