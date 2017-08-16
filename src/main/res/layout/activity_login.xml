@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_launcher" />
 
+        <!--显示中间的输入框-->
         <LinearLayout
             android:id="@+id/input_user_and_password"
             android:layout_width="match_parent"
@@ -29,16 +30,19 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/input_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_launcher_round" />
 
             <EditText
+                android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_launcher_round" />
         </LinearLayout>
 
+        <!--底部的登录按钮-->
         <Button
             android:id="@+id/login_btn"
             android:layout_width="match_parent"

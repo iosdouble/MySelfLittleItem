@@ -1,11 +1,9 @@
 package com.example.nihui.health.fragment;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.nihui.health.R;
 import com.example.nihui.health.base.BaseFragment;
